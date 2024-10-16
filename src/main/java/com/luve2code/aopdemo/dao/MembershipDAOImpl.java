@@ -4,9 +4,10 @@ package com.luve2code.aopdemo.dao;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AccountDAOImpl implements AccountDAO{
+public class MembershipDAOImpl implements MembershipDAO{
     @Override
-    public void addAccount() {
-        System.out.println(getClass()+" : Adding an account");
+    public boolean addSillyMember() {
+        System.out.println(getClass()+" : Adding A Membership account");
+    return true;
     }
 }
