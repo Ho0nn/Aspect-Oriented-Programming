@@ -4,6 +4,7 @@ package com.luve2code.aopdemo.aspect;
 
 import com.luve2code.aopdemo.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -11,11 +12,51 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Aspect
 @Component
 @Order(2)
 public class DemoLoggingAspect {
 
+    // add a new advice for @AfterReturning on the findAccounts method
+
+    @AfterReturning(
+            pointcut = "execution(* com.luve2code.aopdemo.dao.AccountDAO.findAccounts(..))",
+            returning = "result" )
+    public void afterReturningFindAccountsAdvice(JoinPoint joinPoint, List<Account>result){
+
+        // print out which method we are advising on
+       String  method=joinPoint.getSignature().toShortString();
+        System.out.println("\n======>>> Executing @AfterReturning on findAccounts()"+method);
+
+        // print out results of the method call
+        System.out.println("\n======>>> result is: "+result);
+
+        // post-process data ...
+
+        // convert account names to uppercase
+        convertAccountNamesToUpperCase(result);
+
+        System.out.println("\n======>>> result is: "+result);
+    }
+
+    private void convertAccountNamesToUpperCase(List<Account> result) {
+        // loop through accounts
+        for (Account account:result){
+            String  uppCase= account.getName().toUpperCase();
+
+            // update the name
+            account.setName(uppCase);
+        }
+
+        // get uppercase version of name
+
+        // update name in the account
+
+
+
+    }
 
 
     @Before("com.luve2code.aopdemo.aspect.AOPExpressions.forDaoPackageNoGetterSetter()")
