@@ -39,8 +39,7 @@ public class DemoLoggingAspect {
 
                 // downcast and print Account specific stuff
                 Account account = (Account) arg;
-                System.out.println("account name: " + account.getName());
-                System.out.println("account level: " + account.getLevel());
+                System.out.println();
             }
         }
     }
