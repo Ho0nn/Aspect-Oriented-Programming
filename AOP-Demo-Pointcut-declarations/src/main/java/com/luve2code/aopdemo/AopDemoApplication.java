@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(exclude = {org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration.class})
+
 public class AopDemoApplication {
 
     public static void main(String[] args) {
@@ -28,6 +29,13 @@ public class AopDemoApplication {
         // call the business method
         accountDAO.addAccount(account,true);
         accountDAO.doWork();
+
+        // call the accountdao getter/setter methods
+        accountDAO.setName("foobar");
+        accountDAO.setServiceCode("silver");
+
+       String name= accountDAO.getName();
+        String code=accountDAO.getServiceCode();
 
         // call the membership business method
         membershipDAO.addSillyMember();
