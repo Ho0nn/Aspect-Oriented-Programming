@@ -17,6 +17,15 @@ import java.util.List;
 public class DemoLoggingAspect {
 
 
+    @After("execution(* com.luve2code.aopdemo.dao.AccountDAO.findAccounts(..))")
+    public void afterFinallyFindAccountAdvice(JoinPoint joinPoint){
+        // print out which method we are advising on
+        String  method=joinPoint.getSignature().toShortString();
+        System.out.println("\n======>>> Executing @After (finally) on findAccounts()"+method);
+
+    }
+
+
     @AfterThrowing(
             pointcut = "execution(* com.luve2code.aopdemo.dao.AccountDAO.findAccounts(..))",
             throwing = "exc")
