@@ -19,6 +19,9 @@ public class DemoLoggingAspect {
 
 
 
+
+
+
     @Around("execution(* com.luve2code.aopdemo.service.*.getFortune(..))")
     public Object  aroundGetFortune(
             ProceedingJoinPoint joinPoint) throws Throwable{
@@ -30,7 +33,17 @@ public class DemoLoggingAspect {
         long begin=System.currentTimeMillis();
 
         // get end timestamp
-        Object result=joinPoint.proceed();
+        Object result=null;
+        try{
+        result=joinPoint.proceed();
+        }
+        catch (Exception exc){
+            // log the exception
+            System.out.println(exc.getMessage());
+
+            //give user a custom message
+            result="Major accident! But no worries, your private AOP helicopter is on the way!";
+            }
 
         // get end timestamp
         long end=System.currentTimeMillis();

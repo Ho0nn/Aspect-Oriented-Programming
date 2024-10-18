@@ -21,4 +21,13 @@ public class TrafficFortuneServiceImpl  implements TrafficFortuneService {
         // return a fortune
         return "Expect heavy traffic this morning.";
     }
+
+    @Override
+    public String getFortune(boolean flag) {
+        if (flag){
+            throw new RuntimeException("Major accident!");
+        }
+
+        return getFortune();
+    }
 }
